@@ -8,6 +8,8 @@ import org.djna.asynch.estate.data.ThermostatReading;
 
 import javax.jms.*;
 import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 // Emulates Telemetry from multiple devices.
@@ -73,7 +75,7 @@ public class TelemetryEmulator {
 
                     // TODO - add capability for clean shutdown
                     while (! stopping) {
-                        publishTemperature(baseTemperature +temperatureSkew );
+                        publishTemperature(baseTemperature +temperatureSkew, location );
 
                         // prepare next values
                         temperatureSkew++;
@@ -92,17 +94,20 @@ public class TelemetryEmulator {
                 }
             }
 
-            private void publishTemperature( int temperature ) throws JMSException, JsonProcessingException {
-                //ThermostatReading reading = new ThermostatReading( /*some data here */);
+            private void publishTemperature( int temperature, String location ) throws JMSException, JsonProcessingException {
+
+                Date todayDate = Calendar.getInstance().getTime();
+//                String location = "sample";
+                ThermostatReading reading = new ThermostatReading(todayDate, temperature, location);
 
                 // publish JSON from reading
-                // ObjectMapper mapper = new ObjectMapper();
-                // String text = mapper.writeValueAsString(reading);
+                 ObjectMapper mapper = new ObjectMapper();
+                 String text = mapper.writeValueAsString(reading);
 
 
-                String text = "{\"date\":1633362327823,\"temperature\":"
-                        + temperature
-                        + ",\"location\":\"hall\"}";
+//                String text = "{\"date\":1633362327823,\"temperature\":"
+//                        + temperature
+//                        + ",\"location\":\"hall\"}";
                 TextMessage message = session.createTextMessage(text);
 
                 System.out.println("Sent message to "
