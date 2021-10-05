@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 public class HomeMonitorController {
     static private Logger LOGGER = Logger.getLogger(HomeMonitorController.class);
     // enable simple server test
@@ -26,13 +26,26 @@ public class HomeMonitorController {
     }
 
     // display page that subscribes to one topic
+//    @GetMapping("/monitor")
+//    List<ThermoRead> all(@RequestParam(name="property", required=false, defaultValue="101") String property,
+//                          @RequestParam(name="locationSelected", required=false, defaultValue="hall") String location,
+//                          Model model) {
+//        List<ThermoRead> result = new ArrayList<>();
+//        ThermoRead jsonObj = new ThermoRead(location);
+//        result.add(jsonObj);
+//        return result;
+//    }
+
+    // display page that subscribes to one topic
     @GetMapping("/monitor")
-    List<ThermoRead> all(@RequestParam(name="property", required=false, defaultValue="101") String property,
-                          @RequestParam(name="locationSelected", required=false, defaultValue="hall") String location,
-                          Model model) {
-        List<ThermoRead> result = new ArrayList<>();
-        ThermoRead jsonObj = new ThermoRead(location);
-        result.add(jsonObj);
-        return result;
+    public String monitor(
+            @RequestParam(name="property", required=false, defaultValue="101") String property,
+            @RequestParam(name="locationSelected", required=false, defaultValue="hall") String location,
+            Model model) {
+        LOGGER.info("monitor " + property + "/" + location);
+        model.addAttribute("property", property);
+        model.addAttribute("location", location);
+        model.addAttribute("topic", "home/thermostats/" + property + "/" + location);
+        return "monitor";
     }
 }

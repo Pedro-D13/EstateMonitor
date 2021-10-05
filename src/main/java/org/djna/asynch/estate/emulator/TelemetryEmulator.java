@@ -28,10 +28,10 @@ public class TelemetryEmulator {
         LOGGER.debug("debug message");
 
         // example devices
-        startWork(makeDevice("101","hall", 10), false);
-        startWork(makeDevice("101","basement", 25), false);
-        startWork(makeDevice("102","hotelRoom", 10), false);
-        startWork(makeDevice("102","kitchen", 25), false);
+//        startWork(makeDevice("101","hall", 10), false);
+//        startWork(makeDevice("101","basement", 25), false);
+//        startWork(makeDevice("102","hotelRoom", 10), false);
+//        startWork(makeDevice("102","kitchen", 25), false);
 
         // house numbers from 101 to 145
         // each house has a thermostat for living room, bedroom and kitchen
