@@ -2,6 +2,7 @@ package org.djna.asynch.estate.webapp;
 
 
 import org.apache.log4j.Logger;
+import org.djna.asynch.estate.data.ThermoRead;
 import org.djna.asynch.estate.data.ThermostatReading;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
 public class HomeMonitorController {
     static private Logger LOGGER = Logger.getLogger(HomeMonitorController.class);
     // enable simple server test
@@ -23,14 +27,12 @@ public class HomeMonitorController {
 
     // display page that subscribes to one topic
     @GetMapping("/monitor")
-    public String monitor(
-            @RequestParam(name="property", required=false, defaultValue="102") String property,
-            @RequestParam(name="locationSelected", required=false, defaultValue="kitchen") String location,
-            Model model) {
-        LOGGER.info("monitor " + property + "/" + location);
-        model.addAttribute("property", property);
-        model.addAttribute("location", location);
-        model.addAttribute("topic", "home/thermostats/" + property + "/" + location);
-        return "monitor";
+    List<ThermoRead> all(@RequestParam(name="property", required=false, defaultValue="101") String property,
+                          @RequestParam(name="locationSelected", required=false, defaultValue="hall") String location,
+                          Model model) {
+        List<ThermoRead> result = new ArrayList<>();
+        ThermoRead jsonObj = new ThermoRead(location);
+        result.add(jsonObj);
+        return result;
     }
 }
