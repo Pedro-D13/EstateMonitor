@@ -37,4 +37,13 @@ public class ThermostatReading {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        return "ThermostatReading{" +
+                "date=" + date +
+                ", temperature=" + temperature +
+                ", location='" + location + '\'' +
+                '}';
+    }
 }

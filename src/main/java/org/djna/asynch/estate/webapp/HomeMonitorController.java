@@ -2,10 +2,14 @@ package org.djna.asynch.estate.webapp;
 
 
 import org.apache.log4j.Logger;
+import org.djna.asynch.estate.data.ThermostatReading;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeMonitorController {
@@ -20,8 +24,8 @@ public class HomeMonitorController {
     // display page that subscribes to one topic
     @GetMapping("/monitor")
     public String monitor(
-            @RequestParam(name="property", required=false, defaultValue="101") String property,
-            @RequestParam(name="locationSelected", required=false, defaultValue="hall") String location,
+            @RequestParam(name="property", required=false, defaultValue="102") String property,
+            @RequestParam(name="locationSelected", required=false, defaultValue="kitchen") String location,
             Model model) {
         LOGGER.info("monitor " + property + "/" + location);
         model.addAttribute("property", property);

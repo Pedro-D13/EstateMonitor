@@ -10,6 +10,7 @@ import javax.jms.*;
 import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 // Emulates Telemetry from multiple devices.
@@ -28,7 +29,18 @@ public class TelemetryEmulator {
 
         // example devices
         startWork(makeDevice("101","hall", 10), false);
-        //startWork(makeDevice("101","basement", 25), false);
+        startWork(makeDevice("101","basement", 25), false);
+        startWork(makeDevice("102","hotelRoom", 10), false);
+        startWork(makeDevice("102","kitchen", 25), false);
+
+        // house numbers from 101 to 145
+        // each house has a thermostat for living room, bedroom and kitchen
+        for (int houseNum = 101; houseNum <= 145; houseNum++) {
+            startWork(makeDevice(""+ houseNum,"living", 10), false);
+            startWork(makeDevice(""+ houseNum,"bedroom", 25), false);
+            startWork(makeDevice(""+ houseNum,"kitchen", 25), false);
+        }
+
     }
 
     // starts thread for specified emulator
@@ -70,16 +82,18 @@ public class TelemetryEmulator {
                     producer = session.createProducer(destination);
                     // TODO - set QOS options here
 
-                    int baseTemperature = 17;
+                    Random r = new Random();
+
+                    int baseTemperature = r.nextInt(20) + 10;
                     int temperatureSkew = 0;
 
                     // TODO - add capability for clean shutdown
                     while (! stopping) {
-                        publishTemperature(baseTemperature +temperatureSkew, location );
+                        publishTemperature(baseTemperature + temperatureSkew, location );
 
                         // prepare next values
                         temperatureSkew++;
-                        temperatureSkew %= 15;
+                        temperatureSkew = r.nextInt(5);
 
                         // good citizen check
                         int sleepFor =  frequencySeconds < 15 ? 15 : frequencySeconds;
