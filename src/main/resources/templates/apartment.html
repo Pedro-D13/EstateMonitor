@@ -11,9 +11,10 @@
 </head>
 <body>
 <H2 th:text="'Monitoring, property: ' + ${property} " />
+<hr>
 
-
-<button onclick="refreshPage()">REFRESH BEFORE EACH SUBSCRIPTION</button>
+<!--<button onclick="refreshPage()">REFRESH BEFORE EACH SUBSCRIPTION</button>-->
+<h4>Suspect location: <span></span></h4>
 <hr>
 <!--start of each subscription-->
 <input id="topic" type="text"  name="topic"  th:value="${topicList.topicAddress.get(0)}" />
@@ -23,7 +24,7 @@
     <a>Temperature: <span id="Temperature">Unknown</span> </a>
 <p></p>
 <!--    <button onclick="subscribe($('#topic').val())"> Subscribe</button>-->
-<!--<hr>-->
+<hr>
 
 <input id="topic2" type="text"  name="topic"  th:value="${topicList.topicAddress.get(1)}" />
 <p></p>
@@ -32,7 +33,7 @@
 <a>Temperature: <span id="Temperature2">Unknown</span> </a>
 <p></p>
 <!--<button onclick="subscribe2($('#topic2').val())"> Subscribe</button>-->
-<!--<hr>-->
+<hr>
 
 <input id="topic3" type="text"  name="topic"  th:value="${topicList.topicAddress.get(2)}" />
 <p></p>
