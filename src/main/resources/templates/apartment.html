@@ -57,18 +57,32 @@
 <script src="monitor.js"></script>
 <script>
     $(document).ready(async function () {
-        console.log("Subscribing");
-
-        // subscribe, requesting that message be delivered to function below
+    //     console.log("Subscribing");
+    //
+    //     // subscribe, requesting that message be delivered to function below
         let topic = $('#topic').val();
-        // let topic2 = $('#topic2').val();
-        // let topic3 = $('#topic3').val();
-        console.log("Subscribe to " + topic);
-        subscribeHomeMonitor(topic, processMonitorMessage);
-        // // await new Promise(r => setTimeout(r, 2000));
-        // subscribeHomeMonitor(topic2, processMonitorMessage2);
-        // // await new Promise(r => setTimeout(r, 2000));
-        // subscribeHomeMonitor(topic3, processMonitorMessage3);
+        let topic2 = $('#topic2').val();
+        let topic3 = $('#topic3').val();
+    //     console.log("Subscribe to " + topic);
+    //     subscribeHomeMonitor(topic, processMonitorMessage);
+    //     // // await new Promise(r => setTimeout(r, 2000));
+    //     // subscribeHomeMonitor(topic2, processMonitorMessage2);
+    //     // // await new Promise(r => setTimeout(r, 2000));
+    //     // subscribeHomeMonitor(topic3, processMonitorMessage3);
+
+        while (true) {
+            subscribeHomeMonitor(topic, processMonitorMessage);
+            await new Promise(r => setTimeout(r, 10000));
+
+            subscribeHomeMonitor(topic2, processMonitorMessage);
+            await new Promise(r => setTimeout(r, 10000));
+
+            subscribeHomeMonitor(topic3, processMonitorMessage);
+            await new Promise(r => setTimeout(r, 10000))
+        }
+            ;
+
+
     });
 
         function refreshPage(){
@@ -83,7 +97,7 @@
 
         // subscribe, requesting that message be delivered to function below
         console.log("Subscribe to " + topic);
-        if (client.isConnected()) {client.disconnect();}
+        // if (client.isConnected()) {client.disconnect();}
         subscribeHomeMonitor(topic, processMonitorMessage);
 
     };
@@ -93,9 +107,9 @@
 
         // subscribe, requesting that message be delivered to function below
         console.log("Subscribe to " + topic);
-        if (client.isConnected()) {
-            client.disconnect();
-        }
+        // if (client.isConnected()) {
+        //     client.disconnect();
+        // }
         subscribeHomeMonitor(topic, processMonitorMessage2);
 
     };
@@ -105,20 +119,44 @@
 
         // subscribe, requesting that message be delivered to function below
         console.log("Subscribe to " + topic);
-        if (client.isConnected()) {
-            client.disconnect();
-        }
+        // if (client.isConnected()) {
+        //     client.disconnect();
+        // }
         subscribeHomeMonitor(topic, processMonitorMessage3);
 
     };
 
     // Exmple message processor
+
     function processMonitorMessage(message){
         console.log("processMonitorMessage:"+message.payloadString);
         let telemetry = JSON.parse(message.payloadString);
-        $('#Timestamp').text( getFormattedDate(telemetry.date));
-        $('#Temperature').text(telemetry.temperature);
+
+        // better done with lookup
+        let suffix;
+        if (message.topic.endsWith("living") ) {
+            suffix = '';
+        } else if (message.topic.endsWith("kitchen") ) {
+            suffix = '3';
+        } else {
+            suffix = '2';
+        }
+
+        let timestampElement = '#Timestamp' + suffix;
+        let temperatureElement = '#Temperature' + suffix;
+
+        $(timestampElement).text( getFormattedDate(telemetry.date));
+        $(temperatureElement).text(telemetry.temperature);
     }
+
+
+
+    // function processMonitorMessage(message){
+    //     console.log("processMonitorMessage:"+message.payloadString);
+    //     let telemetry = JSON.parse(message.payloadString);
+    //     $('#Timestamp').text( getFormattedDate(telemetry.date));
+    //     $('#Temperature').text(telemetry.temperature);
+    // }
     function processMonitorMessage2(message){
         console.log("processMonitorMessage:"+message.payloadString);
         let telemetry = JSON.parse(message.payloadString);
