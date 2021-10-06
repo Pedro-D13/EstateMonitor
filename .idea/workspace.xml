@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f73a2443-f264-4550-923e-990d93918df6" name="Changes" comment="setup pom">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/data/Apartment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/data/Courtyard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/data/Property.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/apartment.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/emulator/TelemetryEmulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/emulator/TelemetryEmulator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/webapp/HomeMonitorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/webapp/HomeMonitorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/monitor.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/monitor.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,15 +22,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="vanSendJsonFile" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -70,7 +75,7 @@
       <recent name="$PROJECT_DIR$/src/main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HomeMonitorApplication">
+  <component name="RunManager" selected="Application.TelemetryEmulator">
     <configuration name="HomeMonitorApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.djna.asynch.estate.webapp.HomeMonitorApplication" />
       <module name="EstateMonitor" />
@@ -112,7 +117,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1633361611092</updated>
-      <workItem from="1633427808334" duration="14796000" />
+      <workItem from="1633427808334" duration="15199000" />
+      <workItem from="1633456773877" duration="6778000" />
+      <workItem from="1633472455850" duration="4520000" />
+      <workItem from="1633508289027" duration="5253000" />
     </task>
     <task id="LOCAL-00001" summary="setup pom">
       <created>1633361803326</created>

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.log4j.Logger;
+import org.djna.asynch.estate.data.Apartment;
+import org.djna.asynch.estate.data.Courtyard;
+import org.djna.asynch.estate.data.Property;
 import org.djna.asynch.estate.data.ThermostatReading;
 
 import javax.jms.*;
@@ -27,20 +30,15 @@ public class TelemetryEmulator {
         // usually don't enable to see this, debug from libraries is versbose
         LOGGER.debug("debug message");
 
-        // example devices
-//        startWork(makeDevice("101","hall", 10), false);
-//        startWork(makeDevice("101","basement", 25), false);
-//        startWork(makeDevice("102","hotelRoom", 10), false);
-//        startWork(makeDevice("102","kitchen", 25), false);
 
         // house numbers from 101 to 145
         // each house has a thermostat for living room, bedroom and kitchen
-        for (int houseNum = 101; houseNum <= 145; houseNum++) {
-            startWork(makeDevice(""+ houseNum,"living", 10), false);
-            startWork(makeDevice(""+ houseNum,"bedroom", 25), false);
-            startWork(makeDevice(""+ houseNum,"kitchen", 25), false);
-        }
-
+//        for (int houseNum = 101; houseNum <= 145; houseNum++) {
+//            startWork(makeDevice(""+ houseNum,"living", 10), false);
+//            startWork(makeDevice(""+ houseNum,"bedroom", 25), false);
+//            startWork(makeDevice(""+ houseNum,"kitchen", 25), false);
+//        }
+        startWork(makeDevice(""+ 101,"living", 10), false);
     }
 
     // starts thread for specified emulator
