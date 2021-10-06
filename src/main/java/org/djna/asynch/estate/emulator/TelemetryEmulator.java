@@ -39,6 +39,8 @@ public class TelemetryEmulator {
 //            startWork(makeDevice(""+ houseNum,"kitchen", 25), false);
 //        }
         startWork(makeDevice(""+ 101,"living", 10), false);
+        startWork(makeDevice(""+ 101,"bedroom", 10), false);
+        startWork(makeDevice(""+ 101,"kitchen", 10), false);
     }
 
     // starts thread for specified emulator

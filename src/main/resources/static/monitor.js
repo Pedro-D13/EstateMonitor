@@ -25,4 +25,8 @@ function subscribeHomeMonitor(topic, onMessageHandler){
 	    console.log("onConnectionLost:"+responseObject.errorMessage);
     };
 
+    function disconnect() {
+        client.disconnect()
+    };
+
 }
