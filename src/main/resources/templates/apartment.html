@@ -10,31 +10,39 @@
 
 </head>
 <body>
-<H2 th:text="'Monitoring, ' + ${property} + ' ' + ${location} " />
+<H2 th:text="'Monitoring, property: ' + ${property} " />
 
 
 <button onclick="refreshPage()">REFRESH BEFORE EACH SUBSCRIPTION</button>
 <hr>
-<!--<div th:each="topic: ${propertyViewer.topicAddress}">-->
-<!--    <p th:text="${topic}"></p>-->
+<!--start of each subscription-->
 <input id="topic" type="text"  name="topic"  th:value="${topicList.topicAddress.get(0)}" />
-    <p id="Timestamp">No Updates </p>
-    <p id="Temperature">Unknown</p>
+<p></p>
+    <a>Last Update: <span id="Timestamp">No Updates </span></a>
+<p></p>
+    <a>Temperature: <span id="Temperature">Unknown</span> </a>
+<p></p>
     <button onclick="subscribe($('#topic').val())"> Subscribe</button>
 <hr>
 
 <input id="topic2" type="text"  name="topic"  th:value="${topicList.topicAddress.get(1)}" />
-<p id="Timestamp2">No Updates </p>
-<p id="Temperature2">Unknown</p>
-<button onclick="subscribe2($('#topic2').val())">Subscribe</button>
+<p></p>
+<a>Last Update: <span id="Timestamp2">No Updates </span></a>
+<p></p>
+<a>Temperature: <span id="Temperature2">Unknown</span> </a>
+<p></p>
+<button onclick="subscribe2($('#topic2').val())"> Subscribe</button>
 <hr>
 
 <input id="topic3" type="text"  name="topic"  th:value="${topicList.topicAddress.get(2)}" />
-<p id="Timestamp3">No Updates </p>
-<p id="Temperature3">Unknown</p>
-<button onclick="subscribe3($('#topic3').val())">Subscribe</button>
-<!--    <script th:inline="javascript"> subscribe("home/thermostats/101/bedroom")</script>-->
-<!--</div>-->
+<p></p>
+<a>Last Update: <span id="Timestamp3">No Updates </span></a>
+<p></p>
+<a>Temperature: <span id="Temperature3">Unknown</span> </a>
+<p></p>
+<button onclick="subscribe3($('#topic3').val())"> Subscribe</button>
+
+<!-- end of subscriptions-->
 
 <div th:each="topic: ${topicList.topicAddress}">
 <!--    <p id="topic" th:text="${topic}"></p>-->

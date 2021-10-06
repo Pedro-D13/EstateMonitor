@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f73a2443-f264-4550-923e-990d93918df6" name="Changes" comment="setup pom">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/emulator/TelemetryEmulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/emulator/TelemetryEmulator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/monitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/data/Courtyard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/data/Courtyard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/webapp/HomeMonitorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/djna/asynch/estate/webapp/HomeMonitorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/apartment.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/apartment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/monitor.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/monitor.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +117,7 @@
       <workItem from="1633427808334" duration="15199000" />
       <workItem from="1633456773877" duration="6778000" />
       <workItem from="1633472455850" duration="4520000" />
-      <workItem from="1633508289027" duration="10435000" />
+      <workItem from="1633508289027" duration="13123000" />
     </task>
     <task id="LOCAL-00001" summary="setup pom">
       <created>1633361803326</created>
