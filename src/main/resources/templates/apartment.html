@@ -6,36 +6,44 @@
 <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="paho-mqtt.js"></script>
-
+<style>
+    /*.myHR {border:5px solid black;}*/
+</style>
 
 </head>
 <body>
 <H2 th:text="'Monitoring, property: ' + ${property} " />
-<hr>
+<hr class="myHR">
 
 <!--<button onclick="refreshPage()">REFRESH BEFORE EACH SUBSCRIPTION</button>-->
-<h4>Suspect location: <span></span></h4>
-<hr>
+
 <!--start of each subscription-->
-<input id="topic" type="text"  name="topic"  th:value="${topicList.topicAddress.get(0)}" />
+<div class="input-group flex-nowrap">
+<!--    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">-->
+    <input id="topic" type="text"  name="topic" class="form-control" th:value="${topicList.topicAddress.get(0)}" />
+</div>
+<!--<input id="topic" type="text"  name="topic"  th:value="${topicList.topicAddress.get(0)}" />-->
 <p></p>
     <a>Last Update: <span id="Timestamp">No Updates </span></a>
 <p></p>
     <a>Temperature: <span id="Temperature">Unknown</span> </a>
 <p></p>
 <!--    <button onclick="subscribe($('#topic').val())"> Subscribe</button>-->
-<hr>
+<hr class="myHR">
 
-<input id="topic2" type="text"  name="topic"  th:value="${topicList.topicAddress.get(1)}" />
+<div class="input-group flex-nowrap">
+<input id="topic2" type="text"  name="topic" class="form-control" th:value="${topicList.topicAddress.get(1)}" />
+</div>
 <p></p>
 <a>Last Update: <span id="Timestamp2">No Updates </span></a>
 <p></p>
 <a>Temperature: <span id="Temperature2">Unknown</span> </a>
 <p></p>
 <!--<button onclick="subscribe2($('#topic2').val())"> Subscribe</button>-->
-<hr>
-
-<input id="topic3" type="text"  name="topic"  th:value="${topicList.topicAddress.get(2)}" />
+<hr class="myHR">
+<div class="input-group flex-nowrap">
+<input id="topic3" type="text"  name="topic" class="form-control" th:value="${topicList.topicAddress.get(2)}" />
+</div>
 <p></p>
 <a>Last Update: <span id="Timestamp3">No Updates </span></a>
 <p></p>
@@ -64,6 +72,7 @@
         let topic = $('#topic').val();
         let topic2 = $('#topic2').val();
         let topic3 = $('#topic3').val();
+
     //     console.log("Subscribe to " + topic);
     //     subscribeHomeMonitor(topic, processMonitorMessage);
     //     // // await new Promise(r => setTimeout(r, 2000));
@@ -80,52 +89,52 @@
 
             subscribeHomeMonitor(topic3, processMonitorMessage);
             await new Promise(r => setTimeout(r, 10000))
-        }
-            ;
+
+        };
 
 
     });
 
-        function refreshPage(){
-        window.location.reload();
-    }
+    //     function refreshPage(){
+    //     window.location.reload();
+    // }
 
 
-    function subscribe(topic) {
-        // refresh
-
-        console.log("Subscribing");
-
-        // subscribe, requesting that message be delivered to function below
-        console.log("Subscribe to " + topic);
-        // if (client.isConnected()) {client.disconnect();}
-        subscribeHomeMonitor(topic, processMonitorMessage);
-
-    };
-    function subscribe2(topic) {
-
-        console.log("Subscribing");
-
-        // subscribe, requesting that message be delivered to function below
-        console.log("Subscribe to " + topic);
-        // if (client.isConnected()) {
-        //     client.disconnect();
-        // }
-        subscribeHomeMonitor(topic, processMonitorMessage2);
-
-    };
-    function subscribe3(topic) {
-
-        console.log("Subscribing");
-
-        // subscribe, requesting that message be delivered to function below
-        console.log("Subscribe to " + topic);
-        // if (client.isConnected()) {
-        //     client.disconnect();
-        // }
-        subscribeHomeMonitor(topic, processMonitorMessage3);
-
-    };
+    // function subscribe(topic) {
+    //     // refresh
+    //
+    //     console.log("Subscribing");
+    //
+    //     // subscribe, requesting that message be delivered to function below
+    //     console.log("Subscribe to " + topic);
+    //     // if (client.isConnected()) {client.disconnect();}
+    //     subscribeHomeMonitor(topic, processMonitorMessage);
+    //
+    // };
+    // function subscribe2(topic) {
+    //
+    //     console.log("Subscribing");
+    //
+    //     // subscribe, requesting that message be delivered to function below
+    //     console.log("Subscribe to " + topic);
+    //     // if (client.isConnected()) {
+    //     //     client.disconnect();
+    //     // }
+    //     subscribeHomeMonitor(topic, processMonitorMessage2);
+    //
+    // };
+    // function subscribe3(topic) {
+    //
+    //     console.log("Subscribing");
+    //
+    //     // subscribe, requesting that message be delivered to function below
+    //     console.log("Subscribe to " + topic);
+    //     // if (client.isConnected()) {
+    //     //     client.disconnect();
+    //     // }
+    //     subscribeHomeMonitor(topic, processMonitorMessage3);
+    //
+    // };
 
     // Exmple message processor
 
@@ -145,9 +154,12 @@
 
         let timestampElement = '#Timestamp' + suffix;
         let temperatureElement = '#Temperature' + suffix;
+        // let warnLocationElement = '#warnLocation' + suffix;
+
 
         $(timestampElement).text( getFormattedDate(telemetry.date));
         $(temperatureElement).text(telemetry.temperature);
+
     }
 
 
@@ -158,18 +170,18 @@
     //     $('#Timestamp').text( getFormattedDate(telemetry.date));
     //     $('#Temperature').text(telemetry.temperature);
     // }
-    function processMonitorMessage2(message){
-        console.log("processMonitorMessage:"+message.payloadString);
-        let telemetry = JSON.parse(message.payloadString);
-        $('#Timestamp2').text( getFormattedDate(telemetry.date));
-        $('#Temperature2').text(telemetry.temperature);
-    }
-    function processMonitorMessage3(message){
-        console.log("processMonitorMessage:"+message.payloadString);
-        let telemetry = JSON.parse(message.payloadString);
-        $('#Timestamp3').text( getFormattedDate(telemetry.date));
-        $('#Temperature3').text(telemetry.temperature);
-    }
+    // function processMonitorMessage2(message){
+    //     console.log("processMonitorMessage:"+message.payloadString);
+    //     let telemetry = JSON.parse(message.payloadString);
+    //     $('#Timestamp2').text( getFormattedDate(telemetry.date));
+    //     $('#Temperature2').text(telemetry.temperature);
+    // }
+    // function processMonitorMessage3(message){
+    //     console.log("processMonitorMessage:"+message.payloadString);
+    //     let telemetry = JSON.parse(message.payloadString);
+    //     $('#Timestamp3').text( getFormattedDate(telemetry.date));
+    //     $('#Temperature3').text(telemetry.temperature);
+    // }
 
     // Date formatter
     function getFormattedDate(dateToFormat) {

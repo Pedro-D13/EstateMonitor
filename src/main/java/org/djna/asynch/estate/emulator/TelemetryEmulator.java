@@ -32,14 +32,14 @@ public class TelemetryEmulator {
 
         // house numbers from 101 to 145
         // each house has a thermostat for living room, bedroom and kitchen
-        for (int houseNum = 101; houseNum <= 145; houseNum++) {
-            startWork(makeDevice(""+ houseNum,"living", 10), false);
-            startWork(makeDevice(""+ houseNum,"bedroom", 10), false);
-            startWork(makeDevice(""+ houseNum,"kitchen", 10), false);
-        }
-//        startWork(makeDevice(""+ 101,"living", 10), false);
-//        startWork(makeDevice(""+ 101,"bedroom", 10), false);
-//        startWork(makeDevice(""+ 101,"kitchen", 10), false);
+//        for (int houseNum = 101; houseNum <= 145; houseNum++) {
+//            startWork(makeDevice(""+ houseNum,"living", 10), false);
+//            startWork(makeDevice(""+ houseNum,"bedroom", 10), false);
+//            startWork(makeDevice(""+ houseNum,"kitchen", 10), false);
+//        }
+        startWork(makeDevice(""+ 101,"living", 10), false);
+        startWork(makeDevice(""+ 101,"bedroom", 10), false);
+        startWork(makeDevice(""+ 101,"kitchen", 10), false);
     }
 
     // starts thread for specified emulator
@@ -90,8 +90,11 @@ public class TelemetryEmulator {
 
                     // TODO - add capability for clean shutdown
                     while (!stopping) {
-                        Boolean sendWarning = readingChecker.add(baseTemperature + temperatureSkew);
+                        readingChecker.add(baseTemperature + temperatureSkew);
+//                        System.out.println(readingChecker.listOfTemps);
+                        boolean sendWarning =  readingChecker.sendWarning();
                         if (sendWarning) {
+//                            System.out.println("WARN!!!!!");
                             // make new topic
                             baseTopic = baseTopicWarn;
                             topic = MessageFormat.format(
