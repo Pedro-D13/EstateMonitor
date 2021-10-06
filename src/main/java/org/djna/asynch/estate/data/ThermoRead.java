@@ -1,16 +1,22 @@
 package org.djna.asynch.estate.data;
 
-import java.util.Date;
 
-public class ThermostatReading {
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+
+public class ThermoRead {
     // add data such temperature here
     public Date date;
     public int temperature;
     public String location;
 
-    public ThermostatReading(Date initDate, int initTemp, String initLocation) {
-        this.date = initDate;
-        this.temperature = initTemp;
+
+    public ThermoRead(String initLocation) {
+        this.date = Calendar.getInstance().getTime();
+        this.temperature = new Random().nextInt(10) + 10;
         this.location = initLocation;
     }
 

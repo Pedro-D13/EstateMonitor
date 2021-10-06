@@ -1,56 +1,92 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>The Best Property Management System</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="paho-mqtt.js"></script>
 
 
 </head>
 <body>
-<H2 th:text="'Monitoring, ' + ${property} + ' ' + ${location} " />
-<input id="topic" type="text"  name="topic"  th:value="${topic}" />
-<p id="Timestamp">No Updates</p>
-<p id="Temperature">Unknown</p>
+<!--<H2 th:text="'Monitoring, ' + ${property} + ' ' + ${location} " />-->
+<nav class="nav nav-pills nav-fill">
+    <a class="nav-link active" aria-current="page" href="#"><h2> The Property Management System For Owners By Owners</h2></a>
+</nav>
 
+<hr>
+<!--<input id="topic" type="text"  name="topic"  th:value="${topic}" />-->
+<!--<p id="Timestamp">No Updates</p>-->
+<!--<p id="Temperature">Unknown</p>-->
+<!--<p th:text="${location}"></p>-->
+
+<h3> Your Properties</h3>
+<!--cards start-->
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <img src="https://p0.pxfuel.com/preview/354/843/780/antique-architecture-courtyard-decor.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Court Yard One</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Properties
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+<!--                        drop down item starts-->
+                        <div th:each="num: ${courtyardOne.apartmentList}">
+                            <li><a class="dropdown-item" th:href="@{'/apartment?property=' + ${num}}" th:text="${num}"></a></li>
+                        </div>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <img src="https://p1.pxfuel.com/preview/463/783/669/courtyard-castle-places-of-interest-building-hof-shadow-castle-feldkirch-vorarlberg.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Court Yard Two</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Properties
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <div th:each="num: ${courtyardTwo.apartmentList}">
+                            <li><a class="dropdown-item" th:href="@{'/apartment?property=' + ${num}}" th:text="${num}"></a></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <img src="https://p1.pxfuel.com/preview/819/285/171/brackenheim-castle-courtyard-baden-w%C3%BCrttemberg.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Court Yard Three</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Properties
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <div th:each="num: ${courtyardThree.apartmentList}">
+                            <li><a class="dropdown-item" th:href="@{'/apartment?property=' + ${num}}" th:text="${num}"></a></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--cards end-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
 </body>
-<script src="monitor.js"></script>
-<script>
-    $(document).ready(function(){
-         console.log("Subscribing");
 
-         // subscribe, requesting that message be delivered to function below
-         let topic = $('#topic').val();
-         console.log("Subscribe to " + topic);
-         subscribeHomeMonitor(topic, processMonitorMessage);
-    });
-
-    // Exmple message processor
-    function processMonitorMessage(message){
-         console.log("processMonitorMessage:"+message.payloadString);
-         let telemetry = JSON.parse(message.payloadString);
-         $('#Timestamp').text( getFormattedDate(telemetry.date));
-         $('#Temperature').text(telemetry.temperature);
-    }
-
-    // Date formatter
-    function getFormattedDate(dateToFormat) {
-
-        let formatter = Intl.DateTimeFormat(
-              "default", // a locale name; "default" chooses automatically
-              {
-                 weekday: "short",
-                 year: "numeric",
-                 month: "short",
-                 day: "numeric",
-                 hour: "numeric",
-                 minute: "numeric"
-                 }
-        );
-        return formatter.format(dateToFormat);
-    }
-
-</script>
 </html>

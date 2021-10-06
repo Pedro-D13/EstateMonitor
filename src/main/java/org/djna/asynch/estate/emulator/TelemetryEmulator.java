@@ -4,10 +4,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.log4j.Logger;
+import org.djna.asynch.estate.data.Apartment;
+import org.djna.asynch.estate.data.Courtyard;
+import org.djna.asynch.estate.data.Property;
 import org.djna.asynch.estate.data.ThermostatReading;
 
 import javax.jms.*;
 import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 // Emulates Telemetry from multiple devices.
@@ -24,9 +30,17 @@ public class TelemetryEmulator {
         // usually don't enable to see this, debug from libraries is versbose
         LOGGER.debug("debug message");
 
-        // example devices
-        startWork(makeDevice("101","hall", 10), false);
-        //startWork(makeDevice("101","basement", 25), false);
+
+        // house numbers from 101 to 145
+        // each house has a thermostat for living room, bedroom and kitchen
+//        for (int houseNum = 101; houseNum <= 145; houseNum++) {
+//            startWork(makeDevice(""+ houseNum,"living", 10), false);
+//            startWork(makeDevice(""+ houseNum,"bedroom", 25), false);
+//            startWork(makeDevice(""+ houseNum,"kitchen", 25), false);
+//        }
+        startWork(makeDevice(""+ 101,"living", 10), false);
+        startWork(makeDevice(""+ 101,"bedroom", 10), false);
+        startWork(makeDevice(""+ 101,"kitchen", 10), false);
     }
 
     // starts thread for specified emulator
@@ -68,16 +82,18 @@ public class TelemetryEmulator {
                     producer = session.createProducer(destination);
                     // TODO - set QOS options here
 
-                    int baseTemperature = 17;
+                    Random r = new Random();
+
+                    int baseTemperature = r.nextInt(20) + 10;
                     int temperatureSkew = 0;
 
                     // TODO - add capability for clean shutdown
                     while (! stopping) {
-                        publishTemperature(baseTemperature +temperatureSkew );
+                        publishTemperature(baseTemperature + temperatureSkew, location );
 
                         // prepare next values
                         temperatureSkew++;
-                        temperatureSkew %= 15;
+                        temperatureSkew = r.nextInt(5);
 
                         // good citizen check
                         int sleepFor =  frequencySeconds < 15 ? 15 : frequencySeconds;
@@ -92,17 +108,20 @@ public class TelemetryEmulator {
                 }
             }
 
-            private void publishTemperature( int temperature ) throws JMSException, JsonProcessingException {
-                //ThermostatReading reading = new ThermostatReading( /*some data here */);
+            private void publishTemperature( int temperature, String location ) throws JMSException, JsonProcessingException {
+
+                Date todayDate = Calendar.getInstance().getTime();
+//                String location = "sample";
+                ThermostatReading reading = new ThermostatReading(todayDate, temperature, location);
 
                 // publish JSON from reading
-                // ObjectMapper mapper = new ObjectMapper();
-                // String text = mapper.writeValueAsString(reading);
+                 ObjectMapper mapper = new ObjectMapper();
+                 String text = mapper.writeValueAsString(reading);
 
 
-                String text = "{\"date\":1633362327823,\"temperature\":"
-                        + temperature
-                        + ",\"location\":\"hall\"}";
+//                String text = "{\"date\":1633362327823,\"temperature\":"
+//                        + temperature
+//                        + ",\"location\":\"hall\"}";
                 TextMessage message = session.createTextMessage(text);
 
                 System.out.println("Sent message to "

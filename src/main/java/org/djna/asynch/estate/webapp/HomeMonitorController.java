@@ -2,6 +2,8 @@ package org.djna.asynch.estate.webapp;
 
 
 import org.apache.log4j.Logger;
+import org.djna.asynch.estate.data.Apartment;
+import org.djna.asynch.estate.data.Courtyard;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +20,49 @@ public class HomeMonitorController {
     }
 
     // display page that subscribes to one topic
+//    @GetMapping("/monitor")
+//    List<ThermoRead> all(@RequestParam(name="property", required=false, defaultValue="101") String property,
+//                          @RequestParam(name="locationSelected", required=false, defaultValue="hall") String location,
+//                          Model model) {
+//        List<ThermoRead> result = new ArrayList<>();
+//        ThermoRead jsonObj = new ThermoRead(location);
+//        result.add(jsonObj);
+//        return result;
+//    }
+
+    // display page that subscribes to one topic
     @GetMapping("/monitor")
     public String monitor(
             @RequestParam(name="property", required=false, defaultValue="101") String property,
             @RequestParam(name="locationSelected", required=false, defaultValue="hall") String location,
             Model model) {
         LOGGER.info("monitor " + property + "/" + location);
-        model.addAttribute("property", property);
-        model.addAttribute("location", location);
-        model.addAttribute("topic", "home/thermostats/" + property + "/" + location);
+//        model.addAttribute("property", property);
+//        model.addAttribute("location", location);
+//        model.addAttribute("topic", "home/thermostats/" + property + "/" + location);
+        model.addAttribute("courtyardOne", new Courtyard(101, 115));
+        model.addAttribute("courtyardTwo", new Courtyard(116, 130));
+        model.addAttribute("courtyardThree", new Courtyard(131, 145));
+
         return "monitor";
     }
+
+    @GetMapping("/apartment")
+    public String apartment(
+            @RequestParam(name="property") String property,
+            Model model) {
+//        LOGGER.info("monitor " + property + "/" + location);
+        model.addAttribute("property", property);
+//        model.addAttribute("location", location);
+//        model.addAttribute("topic", "home/thermostats/" + property + "/" + location);
+        model.addAttribute("topicList", new Apartment("home/thermostats/", property));
+        return "apartment";
+    }
+//    @RequestMapping("monitor/property")
+//    ModelAndView propertyViewer(
+//            @RequestParam(name="property", required=false, defaultValue="101") String property,
+//            @RequestParam(name="locationSelected", required=false, defaultValue="bedroom") String location) {
+//        return new ModelAndView("property", "propertyViewer",
+//                new Apartment("home/thermostats/", property));
+//    }
 }
